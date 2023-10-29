@@ -1,6 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
-const TodoInput = () => {
+import { ADD_TODO, EDIT_TODO } from "../../redux/slices/todoSlice";
+
+const TodoInput = (props) => {
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    if (!props.isEdit) {
+      dispatch(ADD_TODO(props.data));
+      props.setData("");
+    } else {
+      dispatch(EDIT_TODO({ id: props.id, value: props.data }));
+      props.setIsEdit(false);
+      props.setData("");
+    }
+  };
+
   return (
     <div className="flex justify-between py-9">
       <input
@@ -8,12 +24,15 @@ const TodoInput = () => {
         id="inline-full-name"
         type="text"
         placeholder="Masukkan list"
+        value={props.data}
+        onChange={(e) => props.setData(e.target.value)}
       />
       <button
-        class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-5 rounded focus:outline-none focus:shadow-outline"
+        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-5 rounded focus:outline-none focus:shadow-outline"
         type="button"
+        onClick={() => handleClick()}
       >
-        ADD
+        {props.isEdit ? "EDIT" : "ADD"}
       </button>
     </div>
   );

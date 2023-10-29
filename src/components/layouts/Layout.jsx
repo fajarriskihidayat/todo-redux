@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { Children, useState } from "react";
 import { FILTER_LIST } from "./constans";
-import ToDoList from "../elements/ToDoList";
 
-const Layout = () => {
+const Layout = ({ children }) => {
   const [isActive, setIsActive] = useState("ALL");
 
   const handleChange = (filter) => {
@@ -28,10 +27,7 @@ const Layout = () => {
           ))}
         </ul>
       </nav>
-      <div className="flex flex-col gap-1">
-        <ToDoList />
-        <ToDoList />
-      </div>
+      <div className="flex flex-col gap-1">{children}</div>
     </div>
   );
 };
