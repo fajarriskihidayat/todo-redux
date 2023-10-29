@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { ADD_TODO, EDIT_TODO } from "../../redux/slices/todoSlice";
@@ -28,8 +27,9 @@ const TodoInput = (props) => {
         onChange={(e) => props.setData(e.target.value)}
       />
       <button
-        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-5 rounded focus:outline-none focus:shadow-outline"
+        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-5 rounded focus:outline-none focus:shadow-outline disabled:bg-blue-300"
         type="button"
+        disabled={props.data === "" ? true : false}
         onClick={() => handleClick()}
       >
         {props.isEdit ? "EDIT" : "ADD"}
